@@ -2,10 +2,12 @@
 
 namespace Mediusware\FilamentEmailClient\Resources;
 
+use Filament\Forms;
+use Filament\Forms\Components\ViewField;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Mediusware\FilamentEmailClient\Models\Mailbox;
@@ -21,7 +23,14 @@ class MailboxResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('subject'),
+                // Forms\Components\RichEditor::make('message'),
+                ViewField::make('message')
+                    ->view('filament.forms.components.html'),
+            ])->columns([
+                'sm' => 1,
+                'xl' => 1,
+                '2xl' => 1,
             ]);
     }
 
@@ -29,51 +38,31 @@ class MailboxResource extends Resource
     {
         return $table
             ->columns([
-                //thumbnail
-                ImageColumn::make('thumbnail')
-                    ->label('Image')
-                    ->rounded(),
-
-                //title
-                TextColumn::make('title')
+                TextColumn::make('subject')
+                    ->weight(FontWeight::Bold)
                     ->searchable()
-                    ->sortable()
-                    ->weight('medium')
-                    ->alignLeft(),
-
-                //brand
-                TextColumn::make('brand')
+                    ->sortable(),
+                TextColumn::make('message')
                     ->searchable()
-                    ->sortable()
-                    ->color('secondary')
-                    ->alignLeft(),
-
-                //category
-                TextColumn::make('category')
-                    ->sortable()
-                    ->searchable(),
-
-                //description
-                TextColumn::make('description')
-                    ->sortable()
-                    ->searchable()
-                    ->limit(30),
+                    ->html()
+                    ->words(8),
+                TextColumn::make('attachment'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                // Tables\Actions\ViewAction::make(),
                 // Tables\Actions\EditAction::make(),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ])
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
+                // Tables\Actions\CreateAction::make(),
             ]);
     }
 
