@@ -1,79 +1,72 @@
 {
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "name": "mediusware/filament-email-client",
+    "description": "This is my package filament-email-client",
     "keywords": [
+        "mediusware",
         "laravel",
-        "framework"
+        "filament-email-client"
     ],
+    "homepage": "https://github.com/mediusware/filament-email-client",
+    "support": {
+        "issues": "https://github.com/mediusware/filament-email-client/issues",
+        "source": "https://github.com/mediusware/filament-email-client"
+    },
     "license": "MIT",
-    "repositories": [
+    "authors": [
         {
-            "type": "path",
-            "url": "packages/mediusware/filament-email-client",
-            "options": {
-                "symlink": true
-            }
+            "name": "Amdadul Haq",
+            "email": "amdadulhaq781@gmail.com",
+            "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.1",
-        "filament/filament": "3.0-stable",
-        "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^10.10",
-        "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8",
-        "mediusware/filament-email-client": "3.x-dev"
+        "php": "^8.1|^8.2",
+        "calebporzio/sushi": "^2.4",
+        "filament/filament": "^3.0",
+        "illuminate/contracts": "^10.0",
+        "spatie/laravel-package-tools": "^1.15.0",
+        "webklex/laravel-imap": "^5.3"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
-        "laravel/sail": "^1.18",
-        "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.1",
-        "spatie/laravel-ignition": "^2.0"
+        "nunomaduro/collision": "^7.9",
+        "orchestra/testbench": "^8.0",
+        "pestphp/pest": "^2.0",
+        "pestphp/pest-plugin-arch": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Mediusware\\FilamentEmailClient\\": "src/",
+            "Mediusware\\FilamentEmailClient\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Mediusware\\FilamentEmailClient\\Tests\\": "tests/"
         }
     },
     "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade"
-        ],
-        "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
-        ]
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
     },
     "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mediusware\\FilamentEmailClient\\FilamentEmailClientServiceProvider"
+            ],
+            "aliases": {
+                "FilamentEmailClient": "Mediusware\\FilamentEmailClient\\Facades\\FilamentEmailClient"
+            }
         }
     },
     "minimum-stability": "dev",
