@@ -40,6 +40,8 @@ Now go to your AdminPanelProvider and add this line in plugins section.
 
 ```php
 // App\Providers\Filament;
+use Mediusware\FilamentEmailClient\FilamentEmailClientPlugin;
+
   return $panel
     ->plugins([
         // 

@@ -13,7 +13,8 @@ class Mailbox extends Model
 
     public function getRows()
     {
-        return Cache::remember('users', 3600, function () {
+        // Data cached for 5 min
+        return Cache::remember('users', 300, function () {
 
             $client = Client::account('default');
 
@@ -24,7 +25,8 @@ class Mailbox extends Model
             $data = [];
 
             foreach ($folders as $folder) {
-                $messages = $folder->messages()->all()->limit(5)->get();
+                // Message limit and get all
+                $messages = $folder->messages()->all()->limit(10)->get();
                 if ($folder->name == 'INBOX') {
                     foreach ($messages as $message) {
                         $data[] = [
