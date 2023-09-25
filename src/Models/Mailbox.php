@@ -20,23 +20,21 @@ class Mailbox extends Model
 
             $client->connect();
 
-            $folders = $client->getFolders();
+            $folder = $client->getFolderByName('INBOX');
 
             $data = [];
+            // Message limit and get all
+            $messages = $folder->messages()->all()->limit(12)->get();
 
-            foreach ($folders as $folder) {
-                // Message limit and get all
-                $messages = $folder->messages()->all()->limit(10)->get();
-                if ($folder->name == 'INBOX') {
-                    foreach ($messages as $message) {
-                        $data[] = [
-                            'id' => $message->getUid(),
-                            'from' => $message->getFrom()[0]->mail,
-                            'subject' => $message->getSubject()[0],
-                            'message' => $message->getTextBody(),
-                            'attachment' => $message->getAttachments()->count(),
-                        ];
-                    }
+            foreach ($messages as $message) {
+                if ($message->getTextBody()) {
+                    $data[] = [
+                        'id' => $message->getUid(),
+                        'from' => $message->getFrom()[0]->mail,
+                        'subject' => $message->getSubject()[0],
+                        'message' => $message->getTextBody(),
+                        'attachment' => $message->getAttachments()->count(),
+                    ];
                 }
             }
 

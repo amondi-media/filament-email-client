@@ -39,14 +39,15 @@ IMAP_PROTOCOL="imap"
 Now go to your AdminPanelProvider and add this line in plugins section.
 
 ```php
-// App\Providers\Filament;
+// App\Providers\Filament\AdminPanelProvider;
+
 use Mediusware\FilamentEmailClient\FilamentEmailClientPlugin;
 
-  return $panel
-    ->plugins([
-        // 
-        FilamentEmailClientPlugin::make(),
-    ]);
+return $panel
+  ->plugins([
+      // 
+      FilamentEmailClientPlugin::make(),
+  ]);
 ```
 When you configure properly then you will see this Mailbox menu on Filament Admin Panel.
 
