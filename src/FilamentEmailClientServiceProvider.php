@@ -13,6 +13,7 @@ class FilamentEmailClientServiceProvider extends PackageServiceProvider
     {
         // Configure plugin name
         $package
-            ->name(static::$name);
+            ->name(static::$name)
+            ->hasViews();
     }
 }
