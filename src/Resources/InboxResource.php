@@ -11,13 +11,17 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Mediusware\FilamentEmailClient\Models\Mailbox;
-use Mediusware\FilamentEmailClient\Resources\MailboxResource\Pages;
+use Mediusware\FilamentEmailClient\Resources\InboxResource\Pages;
 
-class MailboxResource extends Resource
+class InboxResource extends Resource
 {
     protected static ?string $model = Mailbox::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $modelLabel = 'Inbox';
+
+    protected static ?string $navigationIcon = 'heroicon-o-inbox';
+
+    protected static ?string $navigationGroup = 'Mailbox';
 
     public static function form(Form $form): Form
     {
@@ -29,7 +33,6 @@ class MailboxResource extends Resource
 
     public static function table(Table $table): Table
     {
-        // Table option defined
         return $table
             ->columns([
                 TextColumn::make('subject')
@@ -48,18 +51,24 @@ class MailboxResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                //
-            ])
-            ->emptyStateActions([
-                //
+                Tables\Actions\BulkActionGroup::make([
+                    // Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
     }
 
     public static function infolist(Infolist $infolist): Infolist
     {
-        // view option defined
         return $infolist
             ->schema([
                 TextEntry::make('subject'),
@@ -74,9 +83,10 @@ class MailboxResource extends Resource
 
     public static function getPages(): array
     {
-        // page are enabled
         return [
-            'index' => Pages\ManageMailboxes::route('/'),
+            'index' => Pages\ListInboxes::route('/'),
+            // 'create' => Pages\CreateInbox::route('/create'),
+            // 'edit' => Pages\EditInbox::route('/{record}/edit'),
         ];
     }
 }

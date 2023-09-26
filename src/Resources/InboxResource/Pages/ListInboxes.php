@@ -1,19 +1,19 @@
 <?php
 
-namespace Mediusware\FilamentEmailClient\Resources\MailboxResource\Pages;
+namespace Mediusware\FilamentEmailClient\Resources\InboxResource\Pages;
 
 use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Pages\ManageRecords;
-use Mediusware\FilamentEmailClient\Resources\MailboxResource;
+use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Mail;
 use Mediusware\FilamentEmailClient\Mail\SendMail;
+use Mediusware\FilamentEmailClient\Resources\InboxResource;
 
-class ManageMailboxes extends ManageRecords
+class ListInboxes extends ListRecords
 {
-    protected static string $resource = MailboxResource::class;
+    protected static string $resource = InboxResource::class;
 
     protected function getHeaderActions(): array
     {
@@ -36,7 +36,7 @@ class ManageMailboxes extends ManageRecords
                             new_subject: $data['subject'],
                             message: $data['message'],
                         ));
-                })
+                }),
         ];
     }
 }

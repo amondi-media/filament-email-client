@@ -4,7 +4,10 @@ namespace Mediusware\FilamentEmailClient;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Mediusware\FilamentEmailClient\Resources\MailboxResource;
+use Mediusware\FilamentEmailClient\Resources\InboxResource;
+use Mediusware\FilamentEmailClient\Resources\OutboxResource;
+use Mediusware\FilamentEmailClient\Resources\SentResource;
+use Mediusware\FilamentEmailClient\Resources\SpamResource;
 
 class FilamentEmailClientPlugin implements Plugin
 {
@@ -23,7 +26,10 @@ class FilamentEmailClientPlugin implements Plugin
         // Register all Filament Resource
         $panel
             ->resources([
-                MailboxResource::class,
+                InboxResource::class,
+                OutboxResource::class,
+                SentResource::class,
+                SpamResource::class,
             ]);
     }
 
